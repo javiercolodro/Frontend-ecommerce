@@ -29,6 +29,8 @@ export const translations = {
 
     // Messages
     loadingProducts: "Loading products...",
+    wakingServer:
+      "Starting the server, this may take up to a minute on the first visit...",
     errorLoading: "Error loading products",
     tryAgain: "Please try again later",
     noProductsFound: "No products found",
@@ -220,6 +222,8 @@ export const translations = {
 
     // Messages
     loadingProducts: "Cargando productos...",
+    wakingServer:
+      "Iniciando el servidor, la primera visita puede tardar hasta un minuto...",
     errorLoading: "Error al cargar productos",
     tryAgain: "Por favor, intenta de nuevo más tarde",
     noProductsFound: "No se encontraron productos",

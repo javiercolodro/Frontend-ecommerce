@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardProduct from "../components/CardProduct/CardProduct";
 import { useProduct } from "../context/useProduct";
 import { FiFilter } from "react-icons/fi";
@@ -12,6 +12,18 @@ const Home = () => {
   const { searchTerm } = useSearch();
   const [sortBy, setSortBy] = useState("default");
   const { t } = useTranslation();
+
+  // Si la carga tarda más de 4s, probablemente el backend (Render free) está
+  // despertando de un cold start: mostramos un mensaje aclaratorio.
+  const [showWakingMessage, setShowWakingMessage] = useState(false);
+  useEffect(() => {
+    if (!productsLoading) {
+      setShowWakingMessage(false);
+      return;
+    }
+    const timer = setTimeout(() => setShowWakingMessage(true), 4000);
+    return () => clearTimeout(timer);
+  }, [productsLoading]);
 
   // Filter and sort products based on search
   let filteredProducts = products.filter((product) => {
@@ -79,6 +91,11 @@ const Home = () => {
             <p className="mt-4 text-gray-600 font-medium">
               {t.loadingProducts}
             </p>
+            {showWakingMessage && (
+              <p className="mt-2 text-sm text-gray-500 max-w-md text-center px-4">
+                {t.wakingServer}
+              </p>
+            )}
           </div>
         ) : error ? (
           <div className="text-center py-20">
